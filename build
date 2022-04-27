@@ -1,0 +1,22 @@
+#! /usr/bin/env bash
+#
+# Create and publish docker image
+#
+# USAGE: ./build <tag>
+#
+# Example: ./build 1.0
+#
+
+TAG=$1
+
+# build
+docker build --tag liufengyun/lctes22:$TAG zeno
+
+# publish
+# docker push liufengyun/lctes22:$TAG
+
+# export
+# docker save lctes22:$TAG | gzip > lctes22-$TAG.tar.gz
+
+# load
+# docker load < lctes22-$TAG.tar.gz
