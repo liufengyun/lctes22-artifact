@@ -20,3 +20,5 @@ docker build --tag liufengyun/lctes22:$TAG .
 
 # load
 # docker load < lctes22-$TAG.tar.gz
+
+# pandoc README.md -o guideline.pdf --pdf-engine=xelatex --from markdown --template eisvogel --listings

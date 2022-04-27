@@ -23,10 +23,18 @@ guide can help with the installation of Docker:
 https://docs.docker.com/get-docker/ .
 
 
-### 1. Download the Docker image:
+### 1. Get the Docker image:
+
+You may pull the docker image with the following command:
 
 ```
 docker pull liufengyun/lctes22:1.0
+```
+
+Or, if you already have the container image, you can import it as follows:
+
+```
+docker load < lctes22-1.0.tar.gz
 ```
 
 ### 2. Run the Docker image:
@@ -38,20 +46,22 @@ docker run -it liufengyun/lctes22:1.0
 
 ### 3. Play with examples
 
-Start the sbt console:
+Start the sbt:
 
 ```
 cd /home/zeno && sbt
 ```
 
+Compile the project:
+
 ``` shell
-sbt > compile
+compile
 ```
 
 Now you can run the following example:
 
 ```
-sbt > run asm/hello.s
+run asm/hello.s
 ```
 
 You should be able to see "hello, world!" printed.
@@ -68,7 +78,7 @@ In this section, the following claims are supported by the artifact:
 
 The implementation is located in the following source files:
 
-``` bash
+\begin{verbatim}
 src/main/scala/zeno
 ├── lang.scala
 ├── core
@@ -89,22 +99,23 @@ src/main/scala/zeno
 └── util
     ├── printing.scala
     └── Tracing.scala
-```
+\end{verbatim}
 
-The ASTs (abstract syntax trees) are defined in the directory `src/main/scala/zeno/core`,
-while the compiler phases are located in the directory `src/main/scala/zeno/rewrite`.
+The ASTs (abstract syntax trees) and compiler phases are defined in the following directories respectively:
+
+- `src/main/scala/zeno/core`
+- `src/main/scala/zeno/rewrite`
 
 The file `src/main/scala/zeno/lang.scala` provides APIs for programmers to construct
 circuits using the DSL.
 
-The example `Adder` and `Filter` can be found below:
-
-- `src/main/scala/zeno/examples/Adder.scala`
-- `src/main/scala/zeno/examples/Filter.scala`
-
 ### 2. DSL Example: Adder
 
-First start the SBT console:
+The source code for the example `Adder` can be found below:
+
+- `src/main/scala/zeno/examples/Adder.scala`
+
+First start the interactive Scala console:
 
 ```
 cd /home/zeno && sbt console
@@ -151,9 +162,14 @@ add2(Value(1, 0) :: Value(0, 1) :: Nil)
 add2(Value(1, 0) :: Value(1, 1) :: Nil)
 ```
 
-### 2. DSL Example: Filter
+### 3. DSL Example: Filter
 
-First start the SBT console:
+The source code for the example `Filter` can be found below:
+
+- `src/main/scala/zeno/examples/Filter.scala`
+
+
+First start the interactive Scala console:
 
 ```
 cd /home/zeno && sbt console
@@ -208,13 +224,13 @@ VecV(List(0, 0, 0, 0, 1, 0, 1, 0))
 VecV(List(0, 0, 0, 1, 0, 0, 0, 1))
 ```
 
-### 3. Micro-controller
+### 4. Micro-controller
 
 The implementation of the controller can be found in `src/main/scala/zeno/examples/Filter.scala`. The test assembly programs can be found in `asm/`.
 
 The simplest way to test the microcontroller is to run it with simulation.
 
-First start the SBT console:
+First start the interactive Scala console:
 
 ```
 cd /home/zeno && sbt console
@@ -242,12 +258,12 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
 
 The method `Controller.test` performs the following steps:
 
-- Use the assembler to translate the test into machine code.
-- Contruct an instance of the microcontroller with the machine code in the ROM for instructions.
-- Create a circuit simulator for the microcontroller.
-- Drive the simulator bus with a simulated memory.
-- Accumulate all memory stores to address 0.
-- When program finishes or maximum iteration reached, return the accumulated writes to address 0.
+1. Use the assembler to translate the test into machine code.
+2. Contruct an instance of the microcontroller with the machine code in the ROM for instructions.
+3. Create a circuit simulator for the microcontroller.
+4. Drive the simulator bus with a simulated memory.
+5. Accumulate all memory stores to address 0.
+6. When program finishes or maximum iterations reached, return the accumulated writes to address 0.
 
 You can play with other assembly files located under `asm/`.
 
@@ -259,3 +275,5 @@ val instructions = Assembler.assemble("asm/jump.s")
 val circuit = Controller.processor(instructions, busIn)
 circuit.toVerilog("Controller", busIn)
 ```
+
+The generated code is large, and the output is truncated.
