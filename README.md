@@ -66,6 +66,12 @@ run asm/hello.s
 
 You should be able to see "hello, world!" printed.
 
+To exit SBT, type:
+
+```
+exit
+```
+
 ## Step-by-Step Instructions
 
 In this section, the following claims are supported by the artifact:
@@ -75,8 +81,6 @@ In this section, the following claims are supported by the artifact:
 - We implement a simple microcontroller in the DSL.
 
 ### 1. Implementation of DSL
-
-The implementation is located in the following source files:
 
 \begin{verbatim}
 src/main/scala/zeno
@@ -129,7 +133,7 @@ import zeno.examples.*
 import scala.language.implicitConversions
 ```
 
-We may create an instance of the adder as follows:
+We can create an instance of the adder as follows:
 
 ``` Scala
 val a = input[Vec[2]]("a")
@@ -137,7 +141,7 @@ val b = input[Vec[2]]("b")
 val circuit = Adder.adder2(a, b)
 ```
 
-We may inspect the representation of the circuit as follows:
+We can inspect the representation of the circuit as follows:
 
 ```
 println(show(circuit))
@@ -149,7 +153,7 @@ We can generate the Verilog:
 circuit.toVerilog("Adder", a, b)
 ```
 
-We may create a simulator:
+We can create a simulator:
 
 ``` Scala
 val add2 = circuit.eval(a, b)
@@ -160,6 +164,12 @@ Now, we can simulate the circuit with input:
 ```Scala
 add2(Value(1, 0) :: Value(0, 1) :: Nil)
 add2(Value(1, 0) :: Value(1, 1) :: Nil)
+```
+
+To exit the Scala console, type:
+
+```
+:exit
 ```
 
 ### 3. DSL Example: Filter
@@ -183,14 +193,14 @@ import zeno.examples.*
 import scala.language.implicitConversions
 ```
 
-We may create an instance of the adder as follows:
+We can create an instance of the adder as follows:
 
 ``` Scala
 val a = input[Vec[8]]("a")
 val circuit = Filter.movingAverage(a)
 ```
 
-We may inspect the representation of the circuit as follows:
+We can inspect the representation of the circuit as follows:
 
 ```
 println(show(circuit))
@@ -202,7 +212,7 @@ We can generate the Verilog:
 circuit.toVerilog("Filter", a)
 ```
 
-We may create a simulator:
+We can create a simulator:
 
 ``` Scala
 val avg = circuit.eval(a)
@@ -222,6 +232,12 @@ You should be able to see the following values:
 VecV(List(0, 0, 0, 0, 0, 0, 1, 0))
 VecV(List(0, 0, 0, 0, 1, 0, 1, 0))
 VecV(List(0, 0, 0, 1, 0, 0, 0, 1))
+```
+
+To exit the Scala console, type:
+
+```
+:exit
 ```
 
 ### 4. Micro-controller
@@ -263,9 +279,9 @@ The method `Controller.test` performs the following steps:
 3. Create a circuit simulator for the microcontroller.
 4. Drive the simulator bus with a simulated memory.
 5. Accumulate all memory stores to address 0.
-6. When program finishes or maximum iterations reached, return the accumulated writes to address 0.
+6. When the program finishes, return the accumulated writes to address 0.
 
-You can play with other assembly files located under `asm/`.
+You can play with other assembly programs located under `asm/`.
 
 We can generate Verilog for the micro-controller as follows:
 
@@ -276,4 +292,17 @@ val circuit = Controller.processor(instructions, busIn)
 circuit.toVerilog("Controller", busIn)
 ```
 
-The generated code is large, and the output is truncated.
+The generated code is a little large, thus the output is truncated.
+
+To exit the Scala console, type:
+
+```
+:exit
+```
+
+
+## Afterword
+
+Thank you for getting to the end of the guideline.
+
+If you have any questions, please feel free to contact us.
