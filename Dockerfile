@@ -3,6 +3,6 @@ FROM lampepfl/dotty:2021-03-22
 
 WORKDIR /home/
 
-COPY . zeno
+COPY zeno/ zeno/
 
 RUN cd zeno && sbt "compile;test"

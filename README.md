@@ -12,7 +12,7 @@ This document provides evaluation guidelines for the following paper:
 It will help evaluate the following claims in the paper (Section 5):
 
 - We implement an embedded DSL in Scala based on implicit state machines.
-- The DSL examples given in the paper work in the paper.
+- The DSL examples given in the paper work as expected.
 - We implement a simple microcontroller in the DSL.
 
 ## Getting Started Guide

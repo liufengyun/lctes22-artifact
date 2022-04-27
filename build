@@ -10,7 +10,7 @@
 TAG=$1
 
 # build
-docker build --tag liufengyun/lctes22:$TAG zeno
+docker build --tag liufengyun/lctes22:$TAG .
 
 # publish
 # docker push liufengyun/lctes22:$TAG
